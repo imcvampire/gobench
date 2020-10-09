@@ -1,0 +1,2 @@
+# gobench
+Some funny benchmarks 
