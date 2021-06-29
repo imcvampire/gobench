@@ -23,7 +23,7 @@ func addAtomic(x int64) {
 	atomic.AddInt64(&sharedValue, x)
 }
 
-func channelUpdater(b *testing.B, ch <-chan int64) {
+func channelUpdater(ch <-chan int64) {
 	for x := range ch {
 		sharedValue += x
 	}
@@ -59,7 +59,7 @@ func runBenchmark(b *testing.B, fn func()) {
 
 func BenchmarkChannel(b *testing.B) {
 	ch := make(chan int64)
-	go channelUpdater(b, ch)
+	go channelUpdater(ch)
 
 	var sendOnly chan<- int64 = ch
 	runBenchmark(b, func() {
